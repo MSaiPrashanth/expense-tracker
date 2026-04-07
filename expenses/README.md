@@ -19,4 +19,11 @@ A web-based expense tracker built using Flask and MySQL with data visualization.
 2. Run app.py
 3. Open localhost:5000
 
+## Screenshorts
+
+##Dashboard
+![Dashboard](images/Dashboard.png)
+
+##Daily expenses
+![Dashboard]
 
