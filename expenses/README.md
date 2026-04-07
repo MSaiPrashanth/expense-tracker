@@ -24,6 +24,13 @@ A web-based expense tracker built using Flask and MySQL with data visualization.
 ##Dashboard
 ![Dashboard](images/Dashboard.png)
 
-##Daily expenses
-![Dashboard]
+##Daily chart
+![Daily](images/Daily_expenses.png)
+
+##Monthly Graph
+![Monthly](images/monthly_expenses.png)
+
+##Yearly Graph
+![Yearly](images/yearly_expenses.png)
+
 
