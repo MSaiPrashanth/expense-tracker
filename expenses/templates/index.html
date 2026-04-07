@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expense Tracker</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #7832be;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+            margin-top: 30px;
+        }
+
+        h1 {
+            color: #007bff;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input, select {
+            padding: 10px;
+            flex: 1;
+        }
+
+        button {
+            padding: 10px;
+            background: rgb(227, 6, 6);
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .total {
+            text-align: right;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        /* FLEX LAYOUT */
+        .flex-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .chart-box, .table-box {
+            width: 50%;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+        }
+
+        .chart-box img {
+            width: 100%;
+            height: auto;
+            color: aqua;
+            
+        }
+
+        /* TABLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+            padding: 10px;
+        }
+
+        td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        tr:hover {
+            background: #f1f1f1;
+        }
+
+        .delete-btn {
+            background: red;
+            color: white;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+
+        .delete-btn:hover {
+            background: #a71d2a;
+        }
+        input[type="date"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+    }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .flex-container {
+                flex-direction: column;
+            }
+
+            .chart-box, .table-box {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1> Expense Tracker</h1>
+
+    <!-- FORM -->
+    <form action="/add" method="post">
+    
+    <select name="category" required>
+        <option value="">Select Category</option>
+        <option value="Food">Food</option>
+        <option value="Travel">Travel</option>
+        <option value="Shopping">Shopping</option>
+        <option value="Bills">Bills</option>
+        <option value="Entertainment">Entertainment</option>
+        <option value="Others">Others</option>
+    </select>
+
+    <input type="number" name="amount" placeholder="Amount" required>
+
+    <!--  Calendar Input -->
+    <input type="date" name="date" required>
+
+    <button type="submit">Add</button>
+
+</form>
+
+    <!-- TOTAL -->
+    <div class="total">
+        Total: ₹{{ total }}
+    </div>
+
+    <!-- FLEX: CHART + TABLE -->
+    <div class="flex-container">
+
+        <!-- CHART -->
+        <div class="chart-box">
+            <h3> Expense Chart</h3>
+            <img src="data:image/png;base64,{{ graph_url }}">
+            <h3> Monthly Expenses</h3>
+            <img src="data:image/png;base64,{{ monthly_graph }}" width="80%">
+
+            <h3> Yearly Expenses</h3>
+            <img src="data:image/png;base64,{{ yearly_graph }}" width="80%">
+
+            <h3> Daily Expenses</h3>
+            <img src="data:image/png;base64,{{ daily_graph }}" width="80%">
+        </div>
+
+        <!-- TABLE -->
+        <div class="table-box">
+            <h3> Expense Table</h3>
+
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Category</th>
+                    
+                    <th>Amount (₹)</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+
+                {% for row in expenses %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>₹{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                    <td>
+                        <a href="/delete/{{ row[0] }}" class="delete-btn">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
